@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Контакты — Anzero Website</title>
+  <meta name="description" content="Связаться с Никитой (Anzero Website): Telegram @vkt0n, почта gumenuk306525@gmail.com, телефон +7 922 577-36-76.">
+  <meta name="theme-color" content="#050b1f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Anzero Website">
+  <meta property="og:title" content="Контакты — Anzero Website">
+  <meta property="og:description" content="Напишите мне — обсудим ваш сайт или Telegram-бота.">
+  <meta property="og:image" content="images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ШАПКА С МЕНЮ (одинаковая на всех страницах) -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="portfolio.html" class="nav__link">Мои работы</a>
+        <a href="prices.html" class="nav__link">Цены</a>
+        <a href="contacts.html" class="nav__link nav__link--active" aria-current="page">Контакты</a>
+        <a href="contacts.html" class="btn btn--small nav__cta">Заказать сайт</a>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         КОНТАКТЫ
+         ============================================================ -->
+    <section class="section section--glow page-section" id="contacts">
+      <div class="section-glow section-glow--left" data-parallax="0.4" aria-hidden="true"></div>
+      <div class="bg-grid" aria-hidden="true"></div>
+      <div class="stars" aria-hidden="true">
+        <i style="--x:80%;--y:4%;--delay:3s;--dur:12s"></i>
+        <i style="--x:40%;--y:0%;--delay:7s;--dur:14s"></i>
+        <b style="--x:88%;--y:40%"></b>
+        <b style="--x:8%;--y:30%;--delay:-1.2s"></b>
+      </div>
+      <div class="decor" aria-hidden="true">
+        <span class="deco" data-parallax="0.4" style="--x:3%;--y:12%;--size:58px;--depth:0.8;--dur:8s;--rot:-8deg"><svg viewBox="0 0 64 64"><use href="#i-mail"/></svg></span>
+        <span class="deco" data-parallax="-0.3" style="--x:93%;--y:10%;--size:54px;--depth:0.7;--dur:7s;--delay:-2s;--rot:6deg;--c:#7dd3fc"><svg viewBox="0 0 64 64"><use href="#i-chat"/></svg></span>
+        <span class="deco" data-parallax="0.6" style="--x:91%;--y:58%;--size:56px;--depth:1.2;--dur:6s;--delay:-3s;--rot:-10deg;--c:#bae6fd;--o:0.3"><svg viewBox="0 0 64 64"><use href="#i-plane"/></svg></span>
+        <span class="deco deco--desk" data-parallax="-0.4" style="--x:4%;--y:62%;--size:48px;--depth:0.6;--dur:9s;--delay:-5s;--rot:-6deg"><svg viewBox="0 0 64 64"><use href="#i-handset"/></svg></span>
+        <span class="deco deco--desk" data-parallax="0.3" style="--x:94%;--y:88%;--size:44px;--depth:0.9;--dur:7.5s;--delay:-1s"><svg viewBox="0 0 64 64"><use href="#i-at"/></svg></span>
+      </div>
+
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__label">Связь</span>
+          <h1 class="section__title">Контакты</h1>
+          <p class="section__text">Расскажите о своей задаче — отвечу в течение дня. Быстрее всего — в Telegram.</p>
+          <!-- Главная кнопка: открывает чат со мной в Telegram -->
+          <a href="https://t.me/vkt0n" class="btn btn--big" target="_blank" rel="noopener">
+            <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-plane"/></svg>
+            Написать мне
+          </a>
+        </div>
+
+        <div class="contacts">
+
+          <!-- Форма заявки -->
+          <!-- novalidate: проверку полей и подсказки об ошибках делает script.js -->
+          <form class="form reveal" id="contact-form" novalidate>
+            <label class="form__field">
+              <span>Ваше имя</span>
+              <input type="text" name="name" placeholder="Например, Анна" autocomplete="name" required>
+              <small class="form__error">Пожалуйста, укажите имя</small>
+            </label>
+            <label class="form__field">
+              <span>Как с вами связаться</span>
+              <input type="text" name="contact" placeholder="Telegram, телефон или почта" required>
+              <small class="form__error">Оставьте Telegram, телефон или почту</small>
+            </label>
+            <label class="form__field">
+              <span>Сообщение</span>
+              <textarea name="message" id="form-message" rows="5" placeholder="Какой сайт или бот вам нужен?" required></textarea>
+              <small class="form__error">Напишите пару слов о задаче</small>
+            </label>
+            <button type="submit" class="btn btn--full" id="form-submit">Отправить заявку</button>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- Блок со ссылками -->
+          <div class="contact-links reveal">
+            <h2 class="contact-links__title">Или напишите напрямую</h2>
+
+            <!-- ▼▼▼ ЗАМЕНИТЕ ЗДЕСЬ СВОИ КОНТАКТЫ ▼▼▼ -->
+
+            <!-- ПОЧТА: поменяйте адрес в двух местах — после mailto: и в тексте -->
+            <a class="contact-link" href="mailto:gumenuk306525@gmail.com">
+              <span class="contact-link__icon">✉</span>
+              <span><small>Почта</small>gumenuk306525@gmail.com</span>
+            </a>
+
+            <!-- TELEGRAM: имя пользователя меняется в двух местах
+                 (и ещё в кнопке «Написать мне» выше) -->
+            <a class="contact-link" href="https://t.me/vkt0n" target="_blank" rel="noopener">
+              <span class="contact-link__icon">✈</span>
+              <span><small>Telegram</small>@vkt0n</span>
+            </a>
+
+            <!-- ТЕЛЕФОН: в href пишите номер без пробелов, в тексте — как удобно -->
+            <a class="contact-link" href="tel:+79225773676">
+              <span class="contact-link__icon">☎</span>
+              <span><small>Телефон</small>+7 922 577-36-76</span>
+            </a>
+
+            <!-- ▲▲▲ КОНЕЦ БЛОКА КОНТАКТОВ ▲▲▲ -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ПОДВАЛ (одинаковый на всех страницах) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+      <nav class="footer__nav" aria-label="Меню в подвале">
+        <a href="index.html">Главная</a>
+        <a href="portfolio.html">Мои работы</a>
+        <a href="prices.html">Цены</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <p>© <span id="year"></span> Anzero Website. Сайты и Telegram-боты на заказ.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

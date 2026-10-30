@@ -1,0 +1,2233 @@
+/* =================================================================
+   СТИЛИ САЙТА ANZERO WEBSITE
+   Файл разбит на разделы. Чтобы найти нужное — ищите заголовки
+   вида «=== НАЗВАНИЕ ===» (Ctrl + F).
+   ================================================================= */
+
+
+/* === 1. ЦВЕТА И ОБЩИЕ НАСТРОЙКИ ===
+   Все цвета собраны здесь. Поменяйте значение — и цвет
+   изменится на всём сайте сразу. */
+:root {
+  --navy-900: #050b1f;   /* самый тёмный синий — фон страницы */
+  --navy-800: #0a1633;   /* тёмно-синий — фон блоков */
+  --navy-700: #12224a;   /* чуть светлее — карточки */
+  --blue-600: #2563eb;   /* насыщенный синий — кнопки */
+  --blue-500: #3b82f6;   /* синий */
+  --sky-400:  #38bdf8;   /* голубой — акценты */
+  --sky-200:  #bae6fd;   /* светло-голубой */
+  --white:    #ffffff;   /* белый — заголовки */
+  --text:     #c7d4ee;   /* основной текст (мягкий белый) */
+  --muted:    #8ea0c4;   /* второстепенный текст */
+
+  /* Фирменный градиент: синий → голубой */
+  --gradient: linear-gradient(135deg, var(--blue-600), var(--sky-400));
+
+  --radius: 20px;        /* скругление углов */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  --glow:   0 20px 50px rgba(56, 189, 248, 0.25);
+  --header-height: 76px;
+}
+
+/* Сброс стандартных отступов браузера */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Плавную прокрутку по пунктам меню делает script.js, поэтому
+   scroll-behavior: smooth здесь специально НЕ включён — иначе страница
+   «уезжала» бы плавно и при открытии/обновлении. */
+html {
+  scroll-padding-top: var(--header-height);         /* чтобы шапка не закрывала заголовки */
+}
+
+body {
+  font-family: "Manrope", system-ui, sans-serif;
+  background: var(--navy-900);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 17px;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* Контейнер — ограничивает ширину контента и центрирует его */
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Текст с градиентной заливкой */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* === 2. КНОПКИ === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: var(--white);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(56, 189, 248, 0.45);
+}
+
+/* Нажатие — кнопка чуть «вдавливается» */
+.btn:active { transform: translateY(0) scale(0.98); }
+
+/* Заметная рамка при переходе по клавише Tab */
+.btn:focus-visible,
+.nav__link:focus-visible,
+.logo:focus-visible,
+.contact-link:focus-visible,
+.to-top:focus-visible,
+.faq__item summary:focus-visible {
+  outline: 3px solid var(--sky-400);
+  outline-offset: 3px;
+}
+
+/* Прозрачная кнопка с рамкой */
+.btn--ghost {
+  background: transparent;
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  box-shadow: none;
+}
+
+.btn--ghost:hover {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: var(--sky-400);
+}
+
+.btn--small { padding: 10px 20px; font-size: 15px; }
+.btn--full  { width: 100%; }
+
+/* Крупная кнопка (например «Написать мне» на странице контактов) */
+.btn--big {
+  margin-top: 30px;
+  padding: 18px 40px;
+  font-size: 19px;
+}
+
+.btn--big .ico { width: 22px; height: 22px; stroke-width: 5; }
+
+/* Неактивная кнопка (например, пока заявка «отправляется») */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Кнопка в состоянии «Готово» после отправки формы */
+.btn--success {
+  background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+}
+
+
+/* === 3. ШАПКА И МЕНЮ === */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Когда страницу прокрутили — у шапки появляется фон (класс добавляет script.js) */
+.header--scrolled {
+  background: rgba(5, 11, 31, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Логотип */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 19px;
+}
+
+.logo__mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--gradient);
+  font-weight: 800;
+}
+
+.logo__text b { color: var(--sky-400); font-weight: 800; }
+
+/* Ссылки меню */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav__link {
+  position: relative;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+/* Голубая полоска под ссылкой при наведении */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: var(--sky-400);
+  transition: width 0.25s;
+}
+
+.nav__link:hover { color: var(--white); }
+.nav__link:hover::after { width: 100%; }
+
+/* Пункт меню того раздела, который сейчас на экране (класс добавляет script.js) */
+.nav__link--active { color: var(--white); }
+.nav__link--active::after { width: 100%; }
+
+/* Бургер (видно только на телефоне) */
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+}
+
+.burger span {
+  display: block;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Бургер превращается в крестик */
+.burger--open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger--open span:nth-child(2) { opacity: 0; }
+.burger--open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+
+/* === 4. ГЛАВНЫЙ ЭКРАН === */
+.hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.25), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.18), transparent 50%),
+    var(--navy-900);
+}
+
+/* Видимая часть главного экрана: высотой во весь экран, содержимое по центру */
+.hero__wrap {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--header-height) + 40px) 0 80px;
+  overflow: hidden;
+}
+
+/* Слой для параллакса: двигается целиком, а круг внутри — «плавает» */
+.hero__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Размытые светящиеся круги на фоне */
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: float 10s ease-in-out infinite;
+}
+
+.hero__blob--1 {
+  width: 400px; height: 400px;
+  background: var(--blue-600);
+  top: -100px; left: -120px;
+}
+
+.hero__blob--2 {
+  width: 340px; height: 340px;
+  background: var(--sky-400);
+  bottom: -120px; right: -80px;
+  animation-delay: -5s;
+}
+
+.hero__blob--3 {
+  width: 260px; height: 260px;
+  background: #6366f1;
+  top: 35%; left: 45%;
+  opacity: 0.25;
+  animation: float-wide 16s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(30px, -30px); }
+}
+
+@keyframes float-wide {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-60px, 40px) scale(1.15); }
+  66%      { transform: translate(50px, -30px) scale(0.9); }
+}
+
+/* Мягкие «частицы», которые медленно всплывают (их создаёт script.js) */
+.hero__particles {
+  position: absolute;
+  inset: -15% 0;                 /* с запасом — для параллакса */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: var(--sky-200);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+  opacity: 0;
+  animation: rise linear infinite;
+}
+
+@keyframes rise {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 0.7; }
+  85%  { opacity: 0.5; }
+  100% { transform: translate(var(--drift, 20px), -70vh); opacity: 0; }
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--sky-200);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.hero__title {
+  font-size: clamp(44px, 6vw, 72px);   /* размер подстраивается под ширину экрана */
+  line-height: 1.05;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero__subtitle {
+  font-size: 20px;
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+
+.hero__subtitle b { color: var(--white); font-weight: 700; }
+
+/* На главной отступы чуть плотнее, чтобы «Обо мне» целиком помещался в экран */
+.hero__content .badge          { margin-bottom: 18px; }
+.hero__content .hero__title    { margin-bottom: 18px; }
+.hero__content .hero__subtitle { max-width: 560px; margin-bottom: 26px; }
+
+.hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Слова заголовков (их создаёт script.js для анимации «по словам») */
+.word { display: inline-block; }
+
+/* Список «Почему со мной удобно» */
+.hero__why-title {
+  color: var(--white);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.hero__checks {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.hero__checks li {
+  position: relative;
+  padding-left: 34px;
+  color: var(--text);
+}
+
+.hero__checks li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--sky-400);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+/* --- 3D-ТЕЛЕФОН НА CSS ---
+   Телефон собран из нескольких слоёв: задняя крышка и средний слой
+   сдвинуты «вглубь» (translateZ) — при повороте видна толщина корпуса.
+   Размер телефона — переменная --w (ширина), высота считается сама. */
+.hero__visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.phone-scene {
+  position: relative;
+  isolation: isolate;
+  perspective: 1400px;
+  padding: 10px 0 0;
+}
+
+/* Мягкое синее свечение позади телефона */
+.phone-scene::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.5), rgba(56, 189, 248, 0.15) 45%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+/* Наклон за мышью (--tilt-x / --tilt-y задаёт script.js) */
+.phone-tilt {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.phone {
+  /* Ширина 270px, но на невысоких экранах телефон уменьшается,
+     чтобы целиком помещаться в окно вместе с подписью */
+  --w: max(210px, min(270px, calc((100vh - 250px) * 0.466)));
+  --r: 48px;                       /* скругление углов корпуса */
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 9 / 19.3;
+  transform-style: preserve-3d;
+  /* Положение «в покое» (если анимации отключены) */
+  transform: rotateY(-12deg) rotateX(5deg);
+  /* Медленное покачивание и «парение» */
+  animation: phone-float 8s ease-in-out infinite;
+}
+
+@keyframes phone-float {
+  0%, 100% { transform: translateY(0) rotateY(-16deg) rotateX(6deg) rotateZ(-1.5deg); }
+  50%      { transform: translateY(-16px) rotateY(-5deg) rotateX(2deg) rotateZ(1deg); }
+}
+
+/* Задняя крышка и средний слой — создают толщину */
+.phone__layer {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r);
+  background: linear-gradient(145deg, #2a56b0, #0b1838 55%, #1c3f86);
+}
+
+.phone__layer--back {
+  transform: translateZ(-16px);
+  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.55);
+}
+
+.phone__layer--mid {
+  transform: translateZ(-8px);
+  background: linear-gradient(145deg, #3b6fd6, #12285c 60%, #2a56b0);
+}
+
+/* Боковые кнопки */
+.phone__btn {
+  position: absolute;
+  width: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #12285c, #4f7fe0);
+  transform: translateZ(-8px);
+}
+
+.phone__btn--power  { right: -4px; top: 27%; height: 13%; }
+.phone__btn--action { left: -4px;  top: 18%; height: 5%; }
+.phone__btn--volume { left: -4px;  top: 26%; height: 18%; }
+
+/* Передняя рамка: металлический ободок с синим отливом */
+.phone__frame {
+  position: absolute;
+  inset: 0;
+  padding: 11px;
+  border-radius: var(--r);
+  background: linear-gradient(145deg, #6b97ee, #1c3f86 28%, #0b1838 62%, #3b6fd6);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(186, 230, 253, 0.5),
+    inset 0 0 0 6px #050b1f,
+    0 0 50px rgba(56, 189, 248, 0.25);
+}
+
+/* Экран */
+.phone__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--r) - 11px);
+  background: #02040b;
+  isolation: isolate;
+}
+
+/* Вырез под камеру («капсула» сверху) */
+.phone__notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 3;
+  width: 32%;
+  height: 26px;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: #000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.phone__notch::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3b82f6, #0b1838 70%);
+}
+
+/* Блик на стекле */
+.phone__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 72%, rgba(255, 255, 255, 0.06) 100%);
+}
+
+/* Работы внутри экрана: видна только активная, смена — плавным проявлением */
+.phone__slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.phone__slide.is-active { opacity: 1; }
+
+/* Картинку прокручивает script.js. Широкий скриншот подгоняется по высоте
+   экрана (едет вправо), высокий — по ширине (едет вниз) */
+.phone__slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  height: 100%;
+  width: auto;
+  will-change: transform;
+}
+
+.phone__slide.is-tall img { width: 100%; height: auto; }
+
+/* Тень под телефоном «дышит» в такт парению */
+.phone-shadow {
+  width: 64%;
+  height: 26px;
+  margin: 18px auto 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 4, 16, 0.75), transparent 70%);
+  animation: shadow-breathe 8s ease-in-out infinite;
+}
+
+@keyframes shadow-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(0.82); opacity: 0.6; }
+}
+
+/* Подпись под телефоном */
+.phone-caption {
+  display: grid;
+  gap: 2px;
+  text-align: center;
+  min-height: 52px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.phone-caption.is-swapping { opacity: 0; transform: translateY(6px); }
+
+.phone-caption__title { color: var(--white); font-size: 18px; font-weight: 800; }
+.phone-caption__type  { color: var(--muted); font-size: 14px; }
+
+/* Точки-переключатели. Сама кнопка крупнее точки — по ней легко попасть пальцем */
+.phone-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.phone-dots button {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.phone-dots button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  translate: -50% -50%;
+  border-radius: 999px;
+  background: rgba(186, 230, 253, 0.3);
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.phone-dots button:hover::before { background: rgba(186, 230, 253, 0.6); }
+
+.phone-dots button.is-active { width: 46px; }
+.phone-dots button.is-active::before { width: 34px; background: var(--gradient); }
+
+.phone-dots button:focus-visible {
+  outline: 3px solid var(--sky-400);
+  outline-offset: 2px;
+}
+
+
+/* --- Внутренние страницы (Мои работы, Цены, Контакты) ---
+   Первый раздел страницы начинается сразу под шапкой */
+.page-section {
+  padding-top: calc(var(--header-height) + 70px);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.22), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.12), transparent 45%),
+    var(--navy-900);
+}
+
+
+/* --- Блок-призыв «Есть идея для сайта или бота?» --- */
+.cta {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 40px;
+  border-radius: 28px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.18), transparent 60%),
+    linear-gradient(165deg, #13306e, var(--navy-800) 70%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: var(--shadow), var(--glow);
+}
+
+.cta--compact { margin-top: 80px; }
+
+.cta__title {
+  color: var(--white);
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.cta__text {
+  color: var(--text);
+  max-width: 560px;
+  margin: 0 auto 30px;
+}
+
+.cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+
+/* === 5. ОБЩИЙ ВИД РАЗДЕЛОВ === */
+.section { padding: 120px 0; }
+
+/* Чередующийся фон для соседних разделов */
+.section--alt {
+  background: linear-gradient(180deg, var(--navy-900), var(--navy-800) 30%, var(--navy-800) 70%, var(--navy-900));
+}
+
+.section__head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 64px;
+}
+
+.section__label {
+  display: inline-block;
+  color: var(--sky-400);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+
+.section__title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section__text { color: var(--muted); font-size: 18px; }
+
+/* Заголовки разделов появляются по словам: каждое слово выезжает
+   снизу со своей задержкой (--i — номер слова, его ставит script.js) */
+.section__title .word {
+  opacity: 0;
+  transform: translateY(0.55em) rotate(2deg);
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(0.15s + var(--i, 0) * 0.08s);
+}
+
+.section__head.visible .section__title .word {
+  opacity: 1;
+  transform: none;
+}
+
+/* Разделы с мягким светящимся пятном на фоне (двигается при прокрутке) */
+.section--glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.section--glow > .container { position: relative; }
+
+.section-glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.section-glow--left  { top: 10%; left: -220px; background: var(--blue-600); }
+.section-glow--right { top: 20%; right: -220px; background: var(--sky-400); opacity: 0.16; }
+
+
+/* === 6. КАРТОЧКИ РАБОТ === */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* --- Общие «живые» эффекты для карточек работ и тарифов ---
+   Положение карточки собрано из переменных:
+   --rx / --ry  — 3D-наклон за курсором (меняет script.js),
+   --lift       — подъём (при наведении и при появлении),
+   --scale      — увеличение при наведении. */
+.work-card,
+.price-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --lift: 0px;
+  --scale: 1;
+  position: relative;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift)) scale(var(--scale));
+  transition:
+    opacity 0.5s ease,
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Пока курсор двигается по карточке — наклон отслеживается быстрее */
+.work-card.is-tilting,
+.price-card.is-tilting {
+  transition:
+    opacity 0.5s ease,
+    transform 0.15s ease-out,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Блик, который пробегает по карточке при наведении */
+.work-card::before,
+.price-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.16) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 130% 0;
+  opacity: 0;
+  transition: background-position 0s, opacity 0.3s;
+}
+
+/* Эффекты наведения — только там, где есть мышь (на телефоне «залипают») */
+@media (hover: hover) {
+  .work-card.visible:hover,
+  .price-card.visible:hover {
+    --lift: -10px;
+    --scale: 1.02;
+    box-shadow: var(--shadow), var(--glow), 0 0 0 1px rgba(56, 189, 248, 0.25);
+    border-color: rgba(56, 189, 248, 0.5);
+  }
+
+  .work-card:hover::before,
+  .price-card:hover::before {
+    opacity: 1;
+    background-position: -30% 0;
+    transition: background-position 0.8s ease, opacity 0.3s;
+  }
+}
+
+/* Свечение, которое следует за курсором внутри карточки.
+   --mx / --my — положение курсора (меняет script.js) */
+.work-card,
+.price-card {
+  --mx: 50%;
+  --my: -40%;
+  --spot: radial-gradient(420px circle at var(--mx) var(--my), rgba(56, 189, 248, 0.14), transparent 45%);
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--spot), var(--navy-800);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+/* Плашка с типом сайта в углу обложки */
+.work-card__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(5, 11, 31, 0.72);
+  border: 1px solid rgba(186, 230, 253, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--sky-200);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Кнопка «Скриншот →» внизу карточки (открывает окно с картинкой) */
+.work-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--sky-400);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.work-card__more span { transition: transform 0.3s ease; }
+
+.work-card__more:focus-visible {
+  outline: 3px solid var(--sky-400);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) {
+  .work-card:hover .work-card__more span { transform: translateX(5px); }
+}
+
+/* Обложка: скриншот сайта в пропорциях экрана компьютера */
+.work-card__cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--navy-700);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Лёгкое затемнение снизу, чтобы скриншот мягко перетекал в карточку */
+.work-card__cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(10, 22, 51, 0.55));
+}
+
+/* Картинка-превью сайта: заполняет обложку и обрезается по её размеру */
+.cover__img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .work-card:hover .cover__img { transform: scale(1.06); }
+}
+
+/* Сетка из двух колонок — для страницы «Мои работы» */
+.works-grid--two { grid-template-columns: repeat(2, 1fr); }
+
+.work-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+  padding: 26px 28px 28px;
+}
+
+.work-card__title {
+  color: var(--white);
+  font-size: 23px;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.work-card__text {
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* Низ карточки: кнопка «Смотреть сайт» (или «Скоро онлайн») и «Скриншот →» */
+.work-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Надпись «Скоро онлайн» вместо кнопки, если сайта ещё нет в интернете */
+.work-card__soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px dashed rgba(186, 230, 253, 0.35);
+  color: var(--sky-200);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Мигающая точка «скоро» */
+.work-card__soon::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sky-400);
+  box-shadow: 0 0 10px var(--sky-400);
+  animation: soon-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes soon-pulse {
+  50% { opacity: 0.3; }
+}
+
+/* Маленькая иконка внутри кнопок и подписей (например «↗» у «Смотреть сайт») */
+.ico {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* === 7. ШАГИ РАБОТЫ === */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.step {
+  position: relative;
+  padding: 34px 28px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.step:hover {
+  transform: translateY(-6px);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.step__num {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--gradient);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 22px;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+.step__title {
+  color: var(--white);
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.step__text { color: var(--muted); font-size: 16px; }
+
+
+/* === 8. ТАРИФЫ === */
+.prices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* Четыре тарифа в ряд (страница «Цены»): карточки чуть компактнее */
+.prices-grid--four {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.prices-grid--four .price-card { padding: 38px 24px 28px; }
+.prices-grid--four .price-card__price { font-size: 31px; }
+/* Описания одной высоты — тогда цены во всех карточках стоят на одной линии */
+.prices-grid--four .price-card__desc { min-height: 72px; }
+
+/* Бейдж скидки над ценой: яркий красно-оранжевый градиент, белый жирный текст */
+.price-card__discount {
+  align-self: flex-start;          /* ширина по тексту, а не на всю карточку */
+  margin-bottom: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.35);
+}
+
+/* Подпись под тарифами «Цена обсуждается под ваши задачи» */
+.prices-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: fit-content;
+  margin: 44px auto 0;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.prices-note .ico { width: 26px; height: 26px; color: var(--sky-400); stroke-width: 4; }
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 32px;
+  border-radius: var(--radius);
+  background: var(--spot), var(--navy-800);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow);
+}
+
+/* Кнопка тарифа подсвечивается при наведении на карточку */
+@media (hover: hover) {
+  .price-card:hover .btn {
+    box-shadow: 0 10px 28px rgba(56, 189, 248, 0.45);
+  }
+  .price-card:hover .btn--ghost {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: var(--sky-400);
+  }
+  .price-card:hover .price-card__list li::before {
+    background: rgba(56, 189, 248, 0.3);
+  }
+}
+
+.price-card__list li::before { transition: background 0.3s; }
+
+/* Выделенный тариф */
+.price-card--popular {
+  background: var(--spot), linear-gradient(165deg, #13306e, var(--navy-800) 70%);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+/* Мягкая пульсация рамки у популярного тарифа */
+.price-card--popular::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: border-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.45), inset 0 0 0 1px rgba(56, 189, 248, 0.5); }
+  50%      { box-shadow: 0 0 0 7px rgba(56, 189, 248, 0), 0 0 30px rgba(56, 189, 248, 0.25), inset 0 0 0 1px rgba(125, 211, 252, 0.9); }
+}
+
+.price-card__badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--gradient);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.price-card__name {
+  color: var(--white);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.price-card__desc {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.price-card__price {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.price-card__list {
+  list-style: none;
+  margin-bottom: 32px;
+  flex-grow: 1;              /* прижимает кнопку к низу карточки */
+}
+
+.price-card__list li {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 14px;
+}
+
+/* Галочка перед пунктом списка */
+.price-card__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--sky-400);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+/* === 9. КОНТАКТЫ И ФОРМА === */
+.contacts {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.form,
+.contact-links {
+  padding: 40px;
+  border-radius: var(--radius);
+  background: var(--navy-700);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow);
+}
+
+.form__field {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.form__field span {
+  display: block;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(5, 11, 31, 0.6);
+  color: var(--white);
+  font: inherit;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form input::placeholder,
+.form textarea::placeholder { color: #5f7099; }
+
+/* Наведение на поле */
+.form input:hover,
+.form textarea:hover { border-color: rgba(56, 189, 248, 0.35); }
+
+/* Подсветка поля, в котором печатаем */
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: var(--sky-400);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+}
+
+/* Ошибка: поле не заполнено (класс добавляет script.js) */
+.form__error {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: #fca5a5;
+  font-size: 14px;
+  font-weight: 600;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.form__field--error input,
+.form__field--error textarea {
+  border-color: #f87171;
+  box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.15);
+}
+
+.form__field--error .form__error {
+  max-height: 40px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.form__status {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--sky-400);
+  min-height: 1.6em;
+}
+
+.form__status--error { color: #fca5a5; }
+
+.contact-links__title {
+  color: var(--white);
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  color: var(--white);
+  font-weight: 600;
+  word-break: break-word;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.contact-link:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.3);
+  transform: translateX(6px);
+}
+
+.contact-link small {
+  display: block;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.contact-link__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--gradient);
+  font-size: 20px;
+}
+
+
+/* === 9.1. ЧАСТЫЕ ВОПРОСЫ === */
+.faq {
+  max-width: 820px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.faq__item {
+  border-radius: 18px;
+  background: var(--navy-800);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.3s, background 0.3s, opacity 0.6s ease, transform 0.6s ease;
+}
+
+.faq__item:hover { border-color: rgba(56, 189, 248, 0.3); }
+.faq__item[open] {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: linear-gradient(165deg, #10275a, var(--navy-800) 70%);
+}
+
+.faq__item summary {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 64px 22px 26px;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 18px;
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+/* Плюс справа, который превращается в крестик */
+.faq__item summary::after {
+  content: "+";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--sky-400);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.faq__answer {
+  padding: 0 26px 24px;
+  color: var(--muted);
+}
+
+.faq__item[open] .faq__answer { animation: faq-open 0.35s ease; }
+
+@keyframes faq-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* === 9.2. ПОЛОСКА ПРОКРУТКИ И КНОПКА «НАВЕРХ» === */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 3px;
+  background: var(--gradient);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--gradient);
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s, box-shadow 0.3s;
+}
+
+.to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.55);
+}
+
+
+/* === 9.3. ОКНО С ПОДРОБНОСТЯМИ ПРОЕКТА ===
+   Открывается по клику на карточку работы (класс .modal--open ставит script.js) */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.modal[hidden] { display: none; }
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 20, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.modal__window {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  border-radius: 24px;
+  background: var(--navy-800);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), var(--glow);
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  outline: none;
+}
+
+.modal--open .modal__backdrop { opacity: 1; }
+.modal--open .modal__window   { opacity: 1; transform: none; }
+
+/* Увеличенный скриншот работы */
+.modal__cover {
+  position: relative;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.18), transparent 60%),
+    linear-gradient(160deg, var(--navy-700), var(--navy-900));
+}
+
+.modal__cover img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.modal__body { padding: 40px 36px 36px; }
+
+.modal__badge {
+  position: static;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.modal__title {
+  color: var(--white);
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.modal__text { color: var(--text); margin-bottom: 26px; }
+
+/* Кнопка «Смотреть сайт» (или «Скоро онлайн») и «Хочу похожий сайт» */
+.modal__actions { display: inline-flex; margin: 0 12px 12px 0; }
+.modal__actions:empty { display: none; }
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background: rgba(5, 11, 31, 0.7);
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+}
+
+.modal__close:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: var(--sky-400);
+  transform: rotate(90deg);
+}
+
+.modal__close:focus-visible {
+  outline: 3px solid var(--sky-400);
+  outline-offset: 3px;
+}
+
+/* Пока окно открыто — страница под ним не прокручивается */
+.modal-lock { overflow: hidden; }
+
+
+/* === 10. ПОДВАЛ === */
+.footer {
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+
+/* Ссылки на страницы в подвале */
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+}
+
+.footer__nav a {
+  color: var(--text);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.footer__nav a:hover { color: var(--sky-400); }
+
+.footer__nav a:focus-visible {
+  outline: 3px solid var(--sky-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+
+/* === 11. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ ПРОКРУТКЕ ===
+   Элементы с классом .reveal сначала невидимы и чуть ниже.
+   Когда они попадают на экран, script.js добавляет класс .visible */
+/* :where() — чтобы это общее правило не перебивало собственные
+   переходы карточек (у них свои скорости для наведения) */
+:where(.reveal) {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal:not(.visible) {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Карточки работ и тарифов прячутся через свою переменную --lift,
+   чтобы появление и 3D-наклон не мешали друг другу */
+.work-card.reveal:not(.visible),
+.price-card.reveal:not(.visible) {
+  --lift: 40px;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift)) scale(var(--scale));
+}
+
+/* После появления у шагов — быстрая анимация наведения */
+.step.visible {
+  transition: opacity 0.6s ease, transform 0.3s, border-color 0.3s;
+}
+
+.step.visible:hover { transform: translateY(-6px); }
+
+/* Если человек включил в системе «уменьшить движение» — убираем
+   движение и частицы, оставляем только мгновенную смену цвета */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  .reveal:not(.visible),
+  .work-card.reveal:not(.visible),
+  .price-card.reveal:not(.visible) { opacity: 1; transform: none; }
+  .work-card,
+  .price-card,
+  .work-card:hover,
+  .price-card:hover { transform: none !important; }
+  .work-card:hover .cover__img { transform: none; }
+  .phone-tilt { transform: none; }
+  .section__title .word { opacity: 1; transform: none; }
+  .modal__window { transform: none; }
+  .work-card::before,
+  .price-card::before,
+  .hero__particles { display: none; }
+}
+
+
+/* === 12. АДАПТАЦИЯ ПОД ПЛАНШЕТЫ И ТЕЛЕФОНЫ === */
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1024px) {
+  .works-grid,
+  .prices-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps       { grid-template-columns: repeat(2, 1fr); }
+  .nav         { gap: 22px; }
+  .hero__inner { gap: 32px; }
+  .phone       { --w: 250px; --r: 42px; }
+}
+
+/* Меню прячется в «бургер» (пунктов много — на планшете они не помещаются) */
+@media (max-width: 960px) {
+  .burger { display: flex; }
+
+  /* Меню превращается в выпадающую панель */
+  .nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    background: rgba(5, 11, 31, 0.97);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateY(-120%);
+    transition: transform 0.35s ease;
+  }
+
+  .nav--open { transform: translateY(0); }
+
+  .nav__link { padding: 10px; font-size: 18px; }
+  .nav__cta  { margin-top: 8px; }
+
+  /* Чтобы меню было видно, когда шапка ещё прозрачная */
+  .header { background: rgba(5, 11, 31, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+}
+
+/* Телефоны и узкие планшеты */
+@media (max-width: 820px) {
+  :root { --header-height: 68px; }
+
+  /* Главная: телефон-макет встаёт под блок «Обо мне» */
+  .hero__inner { grid-template-columns: 1fr; text-align: center; gap: 56px; }
+  .hero__subtitle { margin-left: auto; margin-right: auto; }
+  .hero__buttons { justify-content: center; }
+  .hero__checks { max-width: 460px; margin-left: auto; margin-right: auto; text-align: left; }
+  .phone { --w: 250px; --r: 42px; }
+  .phone-scene::before { width: 320px; height: 320px; }
+
+  .works-grid--two { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto; }
+  .page-section { padding-top: calc(var(--header-height) + 50px); }
+  .cta { padding: 44px 24px; }
+  .cta--compact { margin-top: 56px; }
+
+  /* Окно проекта: картинка сверху, текст снизу */
+  .modal { padding: 12px; }
+  .modal__window { grid-template-columns: 1fr; max-height: calc(100vh - 24px); }
+  .modal__cover { padding: 20px; min-height: 0; }
+  .modal__body { padding: 24px 22px 28px; }
+  .modal__title { font-size: 24px; }
+
+  .section { padding: 80px 0; }
+  .section__head { margin-bottom: 44px; }
+
+  .contacts { grid-template-columns: 1fr; }
+
+  /* Популярный тариф идёт первым на телефоне */
+  .price-card--popular { order: -1; }
+}
+
+/* Маленькие телефоны */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .container { padding: 0 16px; }
+
+  .works-grid,
+  .prices-grid,
+  .steps { grid-template-columns: 1fr; gap: 24px; }
+
+  .hero__subtitle { font-size: 18px; }
+  .modal .btn { width: 100%; }
+  .modal__actions { display: flex; margin-right: 0; }
+  .cta__buttons .btn { width: 100%; }
+  .work-card__body { padding: 22px 20px 24px; }
+  .hero__buttons .btn { width: 100%; }
+
+  .form,
+  .contact-links { padding: 26px 20px; }
+
+  .price-card { padding: 36px 24px; }
+
+  .faq__item summary { padding: 18px 56px 18px 20px; font-size: 16px; }
+  .faq__answer { padding: 0 20px 20px; }
+
+  .to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; }
+
+  .footer__inner { flex-direction: column; text-align: center; }
+}
+
+/* Очень узкие экраны (старые и маленькие телефоны, ~320–380px) */
+@media (max-width: 380px) {
+  .logo { font-size: 17px; }
+  .logo__mark { width: 34px; height: 34px; }
+  .hero__title { font-size: 40px; }
+  .phone { --w: 220px; --r: 38px; }
+  .price-card__price { font-size: 32px; }
+  .contact-link { padding: 12px; gap: 12px; }
+  .contact-link__icon { width: 40px; height: 40px; font-size: 18px; }
+}
+
+
+/* =================================================================
+   13. ДЕКОР И «ФИШЕЧКИ»
+   Плавающие предметы, сетка, звёздочки, бегущая лента
+   технологий, волны между разделами, свечение курсора, магнитные кнопки.
+   Чтобы отключить деталь целиком — найдите её подраздел ниже
+   и допишите в нужное правило: display: none;
+   ================================================================= */
+
+/* Набор иконок сам по себе не виден */
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Содержимое разделов всегда поверх декора */
+.section { position: relative; }
+.section > .container,
+.hero__inner { position: relative; z-index: 2; }
+
+
+/* --- 13.1. Плавающие предметы --- */
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--size, 56px) * var(--k, 1));
+  color: var(--c, var(--sky-400));
+  opacity: var(--o, 0.22);
+  /* Смещение за мышью: --mouse-x/--mouse-y (от -1 до 1) задаёт script.js,
+     --depth — «глубина»: чем больше, тем сильнее движется предмет */
+  translate:
+    calc(var(--mouse-x, 0) * var(--depth, 0.5) * 36px)
+    calc(var(--mouse-y, 0) * var(--depth, 0.5) * 36px);
+}
+
+/* Общий вид рисунков из набора иконок: тонкие линии цветом currentColor */
+.deco svg,
+.tech__icon {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Покачивание: у каждого предмета своя скорость (--dur) и сдвиг (--delay) */
+.deco svg {
+  transform: rotate(var(--rot, 0deg));
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.35));
+  animation: deco-float var(--dur, 8s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+/* Шестерёнка не качается, а медленно вращается */
+.deco--spin svg { animation: deco-spin 26s linear infinite; }
+
+@keyframes deco-float {
+  from { transform: translate3d(0, -10px, 0) rotate(calc(var(--rot, 0deg) - 5deg)); }
+  to   { transform: translate3d(6px, 10px, 0) rotate(calc(var(--rot, 0deg) + 5deg)); }
+}
+
+@keyframes deco-spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* --- 13.2. Сетка из тонких линий, которая медленно «плывёт» ---
+   Двигается вложенный слой (transform) — это почти не нагружает браузер */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 15%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 15%, transparent 75%);
+}
+
+.bg-grid::before {
+  content: "";
+  position: absolute;
+  inset: -64px;
+  background-image:
+    linear-gradient(rgba(125, 180, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 180, 255, 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: grid-drift 32s linear infinite;
+}
+
+@keyframes grid-drift {
+  to { transform: translate3d(64px, 64px, 0); }
+}
+
+/* Светящиеся пятна разделов медленно «дышат» и плавают.
+   Используем translate/scale, чтобы не мешать параллаксу (он меняет transform) */
+.section-glow { animation: glow-drift 16s ease-in-out infinite alternate; }
+
+.section-glow--center {
+  top: 25%;
+  left: 50%;
+  margin-left: -260px;
+  background: var(--blue-500);
+  opacity: 0.16;
+}
+
+@keyframes glow-drift {
+  from { translate: 0 0; scale: 1; }
+  to   { translate: 60px -40px; scale: 1.15; }
+}
+
+
+/* --- 13.3. Падающие звёздочки (i) и мерцающие искры (b) --- */
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stars i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 120px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(186, 230, 253, 0.95), transparent);
+  opacity: 0;
+  transform: rotate(-35deg);
+  transform-origin: left center;
+  animation: star-fall var(--dur, 9s) linear var(--delay, 0s) infinite;
+}
+
+/* Звезда видна лишь короткий миг в начале цикла — поэтому падает редко */
+@keyframes star-fall {
+  0%   { opacity: 0; transform: rotate(-35deg) translateX(0); }
+  2%   { opacity: 1; }
+  9%   { opacity: 0; transform: rotate(-35deg) translateX(-380px); }
+  100% { opacity: 0; transform: rotate(-35deg) translateX(-380px); }
+}
+
+.stars b {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 10px;
+  height: 10px;
+  background: var(--sky-200);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  opacity: 0.5;
+  animation: twinkle 3.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.6) rotate(0deg); }
+  50%      { opacity: 0.8;  transform: scale(1.1) rotate(45deg); }
+}
+
+
+/* --- 13.4. Бегущая лента технологий --- */
+.section--tools {
+  padding-top: 150px;
+  background: linear-gradient(180deg, #0a1638, var(--navy-900));
+  /* Косой верхний край раздела */
+  clip-path: polygon(0 70px, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Светящаяся линия вдоль косого края */
+.section--tools::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  pointer-events: none;
+  background: linear-gradient(to top right, transparent calc(50% - 1px), rgba(56, 189, 248, 0.45) 50%, transparent calc(50% + 1px));
+}
+
+.marquee {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+}
+
+.marquee__row {
+  overflow: hidden;
+  padding: 12px 0;
+  /* Края ленты плавно растворяются */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+.marquee__row--reverse .marquee__track {
+  animation-direction: reverse;
+  animation-duration: 48s;
+}
+
+/* Наведение на ленту — она останавливается, чтобы было удобно смотреть */
+.marquee__row:hover .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Значок технологии. Цвет иконки и свечения — переменная --tc */
+.tech {
+  --tc: var(--sky-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 16px;          /* отступ справа (не gap) — чтобы лента шла без рывка */
+  padding: 10px 22px 10px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s, border-color 0.35s, background 0.35s;
+}
+
+.tech__icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--tc);
+  background: rgba(56, 189, 248, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  stroke-width: 3.5;
+  transition: transform 0.35s ease;
+}
+
+/* При наведении значок подпрыгивает и светится своим цветом */
+.tech:hover {
+  transform: translateY(-6px) scale(1.04);
+  border-color: var(--tc);
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow: 0 14px 30px -12px var(--tc), 0 0 22px -6px var(--tc);
+}
+
+.tech:hover .tech__icon { transform: rotate(-10deg) scale(1.08); }
+
+
+/* --- 13.5. Волны между разделами --- */
+.section--alt {
+  z-index: 2;                       /* волны ложатся поверх соседних разделов */
+  background: var(--navy-800);
+}
+
+.wave {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wave--top    { bottom: calc(100% - 1px); }
+.wave--bottom { top: calc(100% - 1px); transform: scaleY(-1); }
+
+.wave__fill { fill: var(--navy-800); }
+
+.wave__line {
+  fill: none;
+  stroke: rgba(56, 189, 248, 0.35);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+
+/* --- 13.6. Свечение за курсором --- */
+.cursor-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.13), rgba(37, 99, 235, 0.05) 40%, transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  will-change: transform;
+}
+
+.cursor-glow--on { opacity: 1; }
+
+
+/* --- 13.7. Магнитные кнопки и мягкая пульсация ---
+   --bx / --by — сдвиг к курсору (задаёт script.js). Используется свойство
+   translate, поэтому оно не мешает подъёму кнопки при наведении (transform) */
+.btn,
+.to-top {
+  translate: var(--bx, 0px) var(--by, 0px);
+}
+
+.btn {
+  position: relative;
+  transition: transform 0.25s, box-shadow 0.25s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.to-top {
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s, box-shadow 0.3s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Расходящееся кольцо вокруг кнопки при наведении */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .btn:not(:disabled):hover::after { animation: btn-pulse 1.5s ease-out infinite; }
+}
+
+@keyframes btn-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.45); }
+  100% { box-shadow: 0 0 0 14px rgba(56, 189, 248, 0); }
+}
+
+
+/* --- 13.8. Декор на планшетах и телефонах: меньше и проще --- */
+@media (max-width: 820px) {
+  .deco { --k: 0.65; --o: 0.16; }
+  .deco--desk { display: none; }
+  .deco svg { filter: none; }              /* тень-свечение тяжеловата для телефона */
+  .stars i:nth-of-type(n + 2) { display: none; }
+  .cursor-glow { display: none; }
+
+  .section--tools { padding-top: 110px; clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%); }
+  .section--tools::after { height: 40px; }
+  .tech { padding: 8px 18px 8px 8px; font-size: 15px; }
+  .tech__icon { width: 34px; height: 34px; padding: 7px; }
+
+  .wave { height: 36px; }
+}
+
+
+/* --- 13.9. «Уменьшить движение»: детали остаются, но стоят на месте --- */
+@media (prefers-reduced-motion: reduce) {
+  .deco { translate: none; }
+  .deco svg { transform: rotate(var(--rot, 0deg)) !important; }
+  .cursor-glow,
+  .stars i { display: none; }
+  .btn,
+  .to-top { translate: none; }
+
+  /* Лента не бежит, а стоит аккуратной сеткой; копии значков прячем */
+  .marquee__row { -webkit-mask-image: none; mask-image: none; }
+  .marquee__track {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 0;
+    padding: 0 16px;
+  }
+  .tech--clone { display: none; }
+}

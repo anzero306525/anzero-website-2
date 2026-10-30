@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Название страницы во вкладке браузера (МЕНЯТЬ ЗДЕСЬ) -->
+  <title>Anzero Website — сайты и Telegram-боты на заказ</title>
+  <meta name="description" content="Привет, я Никита. Делаю сайты на HTML и CSS и Telegram-ботов на aiogram: лендинг от 5 000 ₽, сайт-визитка от 7 500 ₽, Telegram-бот от 2 000 ₽.">
+  <meta name="theme-color" content="#050b1f">
+
+  <!-- Превью при отправке ссылки в Telegram, ВКонтакте и т. п. (Open Graph).
+       ВАЖНО: когда сайт появится в интернете, впишите в og:image и og:url
+       полный адрес, например https://ваш-домен.ru/images/og-image.png -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Anzero Website">
+  <meta property="og:title" content="Anzero Website — сайты и Telegram-боты на заказ">
+  <meta property="og:description" content="Современные сайты и Telegram-боты под ключ: лендинг от 5 000 ₽, сайт-визитка от 7 500 ₽, бот от 2 000 ₽.">
+  <meta property="og:image" content="images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <!-- <meta property="og:url" content="https://ваш-домен.ru/"> -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Иконка во вкладке (синий квадрат с буквой A) -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <!-- Шрифт Manrope из Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Общие стили всех страниц -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Мягкое свечение, которое следует за мышью (включает script.js, только на компьютере) -->
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Полоска прогресса прокрутки (ширину меняет script.js) -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       ШАПКА С МЕНЮ — одинаковая на всех страницах.
+       Если меняете пункты меню — поменяйте их во всех 4 файлах.
+       Текущая страница отмечена классом nav__link--active.
+       ============================================================ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav__link nav__link--active" aria-current="page">Главная</a>
+        <a href="portfolio.html" class="nav__link">Мои работы</a>
+        <a href="prices.html" class="nav__link">Цены</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+        <a href="contacts.html" class="btn btn--small nav__cta">Заказать сайт</a>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         1. ГЛАВНЫЙ ЭКРАН: слева «Обо мне», справа 3D-телефон
+         ============================================================ -->
+    <section class="hero" id="home">
+      <div class="hero__wrap">
+        <!-- Декоративные размытые круги на фоне (data-parallax — сила параллакса) -->
+        <div class="hero__layer" data-parallax="0.5" aria-hidden="true"><div class="hero__blob hero__blob--1"></div></div>
+        <div class="hero__layer" data-parallax="-0.4" aria-hidden="true"><div class="hero__blob hero__blob--2"></div></div>
+        <div class="hero__layer" data-parallax="0.9" aria-hidden="true"><div class="hero__blob hero__blob--3"></div></div>
+        <!-- Сюда script.js добавляет мягко всплывающие «частицы» -->
+        <div class="hero__particles" id="particles" data-parallax="-0.3" aria-hidden="true"></div>
+        <div class="bg-grid" aria-hidden="true"></div>
+        <div class="stars" aria-hidden="true">
+          <i style="--x:72%;--y:6%;--delay:1s"></i>
+          <i style="--x:38%;--y:2%;--delay:5s;--dur:11s"></i>
+          <i style="--x:95%;--y:30%;--delay:8s;--dur:13s"></i>
+          <b style="--x:30%;--y:22%"></b>
+          <b style="--x:62%;--y:70%;--delay:-1.5s"></b>
+          <b style="--x:12%;--y:62%;--delay:-2.4s"></b>
+        </div>
+
+        <!-- ПЛАВАЮЩИЕ ПРЕДМЕТЫ (так же устроены на всех страницах):
+             --x/--y — положение, --size — размер, --depth — насколько сильно
+             предмет смещается за мышью, --dur — скорость покачивания,
+             --rot — наклон, --c — цвет, --o — прозрачность.
+             data-parallax — сдвиг при прокрутке (минус — в другую сторону).
+             Класс deco--desk — предмет виден только на компьютере.
+             Чтобы убрать предмет — удалите его строку <span class="deco">. -->
+        <div class="decor" aria-hidden="true">
+          <span class="deco deco--desk" data-parallax="0.5" style="--x:47%;--y:9%;--size:96px;--depth:0.8;--dur:9s;--rot:-6deg"><svg viewBox="0 0 64 64"><use href="#i-editor"/></svg></span>
+          <span class="deco" data-parallax="0.3" style="--x:3%;--y:14%;--size:54px;--depth:0.5;--dur:7s;--delay:-2s;--rot:-12deg"><svg viewBox="0 0 64 64"><use href="#i-code"/></svg></span>
+          <span class="deco" data-parallax="-0.4" style="--x:44%;--y:86%;--size:48px;--depth:1;--dur:8s;--delay:-4s;--rot:10deg;--c:#7dd3fc"><svg viewBox="0 0 64 64"><use href="#i-braces"/></svg></span>
+          <span class="deco deco--desk" data-parallax="0.6" style="--x:92%;--y:15%;--size:42px;--depth:1.2;--dur:6s;--delay:-1s;--rot:-14deg;--c:#bae6fd"><svg viewBox="0 0 64 64"><use href="#i-cursor"/></svg></span>
+          <span class="deco deco--desk" data-parallax="-0.3" style="--x:1.5%;--y:78%;--size:78px;--depth:0.4;--dur:10s;--delay:-6s;--rot:5deg"><svg viewBox="0 0 64 64"><use href="#i-browser"/></svg></span>
+          <span class="deco" data-parallax="0.4" style="--x:91%;--y:78%;--size:50px;--depth:0.9;--dur:7.5s;--delay:-3s;--rot:12deg;--c:#bae6fd;--o:0.28"><svg viewBox="0 0 64 64"><use href="#i-bulb"/></svg></span>
+        </div>
+
+        <div class="container hero__inner">
+
+          <!-- Блок «Обо мне» (МЕНЯТЬ ТЕКСТЫ ЗДЕСЬ) -->
+          <div class="hero__content">
+            <span class="badge">● Принимаю заказы</span>
+
+            <h1 class="hero__title">Привет, я <span class="gradient-text">Никита</span></h1>
+
+            <p class="hero__subtitle">
+              Делаю современные сайты на <b>HTML и CSS</b> и <b>Telegram-ботов</b> на aiogram —
+              от лендинга до многостраничного сайта. Беру задачу целиком: от идеи до запуска.
+            </p>
+
+            <p class="hero__why-title">Почему со мной удобно:</p>
+            <ul class="hero__checks">
+              <li>Отвечаю быстро и объясняю всё простым языком</li>
+              <li>Показываю промежуточный результат и вношу правки</li>
+              <li>Сайт одинаково хорошо выглядит на телефоне и компьютере</li>
+              <li>Честные цены: бот от 2 000 ₽, лендинг от 5 000 ₽</li>
+            </ul>
+
+            <div class="hero__buttons">
+              <a href="portfolio.html" class="btn">Смотреть работы</a>
+              <a href="contacts.html" class="btn btn--ghost">Заказать сайт</a>
+            </div>
+          </div>
+
+          <!-- 3D-ТЕЛЕФОН, нарисованный на CSS.
+               Внутри экрана по очереди показываются работы. Каждая работа —
+               блок <div class="phone__slide">:
+                 data-title — название, data-type — тип сайта (подпись под телефоном);
+                 src — обычный скриншот;
+                 data-mobile — мобильный скриншот (например img/works/gus-mobile.png).
+                   Если он указан — показывается он, если пусто — обычный.
+               Высокий (мобильный) скриншот прокручивается сверху вниз,
+               широкий (компьютерный) — плавно слева направо. -->
+          <div class="hero__visual">
+            <div class="phone-scene" id="phone-scene">
+              <div class="phone-tilt" id="phone-tilt">
+                <div class="phone" id="phone">
+                  <!-- Слои корпуса: задняя крышка и «толщина» -->
+                  <div class="phone__layer phone__layer--back" aria-hidden="true"></div>
+                  <div class="phone__layer phone__layer--mid" aria-hidden="true"></div>
+                  <!-- Боковые кнопки -->
+                  <span class="phone__btn phone__btn--power" aria-hidden="true"></span>
+                  <span class="phone__btn phone__btn--action" aria-hidden="true"></span>
+                  <span class="phone__btn phone__btn--volume" aria-hidden="true"></span>
+
+                  <div class="phone__frame">
+                    <div class="phone__screen">
+                      <div class="phone__notch" aria-hidden="true"></div>
+
+                      <div class="phone__slide is-active" data-title="Добрый Гусь" data-type="Сайт кофейни">
+                        <img src="img/works/web/gus.jpg" data-mobile="" alt="Сайт кофейни «Добрый Гусь»">
+                      </div>
+                      <div class="phone__slide" data-title="Зерно &amp; Пар" data-type="Сайт спешелти-кофейни">
+                        <img src="img/works/web/zerno.jpg" data-mobile="" alt="Сайт кофейни «Зерно &amp; Пар»" loading="lazy">
+                      </div>
+                      <div class="phone__slide" data-title="Анастасия Шиян — stylist" data-type="Сайт-портфолио стилиста">
+                        <img src="img/works/web/stylist.jpg" data-mobile="img/works/web/stylist-mobile.jpg" alt="Сайт-портфолио стилиста Анастасии Шиян" loading="lazy">
+                      </div>
+                      <div class="phone__slide" data-title="Nail Studio Yuliana" data-type="Многостраничный сайт мастера маникюра">
+                        <img src="img/works/web/nail.jpg" data-mobile="img/works/web/nail-mobile.jpg" alt="Сайт Nail Studio Yuliana" loading="lazy">
+                      </div>
+
+                      <div class="phone__glare" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-shadow" aria-hidden="true"></div>
+            </div>
+
+            <!-- Подпись: какая работа сейчас на экране (заполняет script.js) -->
+            <div class="phone-caption" aria-live="polite">
+              <b class="phone-caption__title" id="phone-title">Добрый Гусь</b>
+              <span class="phone-caption__type" id="phone-type">Сайт кофейни</span>
+            </div>
+            <!-- Точки-переключатели (кнопки создаёт script.js) -->
+            <div class="phone-dots" id="phone-dots" role="group" aria-label="Выбор работы"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2. ИНСТРУМЕНТЫ И ТЕХНОЛОГИИ (бегущая лента со значками)
+         Каждый значок — <span class="tech">. Иконка берётся из набора
+         js/icons.js (href="#i-..."), цвет — переменная --tc.
+         Копию ленты для бесконечной прокрутки script.js сделает сам.
+         ============================================================ -->
+    <section class="section section--glow section--tools" id="tools">
+      <div class="section-glow section-glow--center" data-parallax="0.4" aria-hidden="true"></div>
+      <div class="bg-grid" aria-hidden="true"></div>
+      <div class="decor" aria-hidden="true">
+        <span class="deco" data-parallax="0.4" style="--x:5%;--y:22%;--size:46px;--depth:0.8;--dur:7s;--rot:-8deg;--c:#bae6fd"><svg viewBox="0 0 64 64"><use href="#i-spark"/></svg></span>
+        <span class="deco deco--desk" data-parallax="-0.4" style="--x:92%;--y:20%;--size:54px;--depth:0.6;--dur:9s;--delay:-3s;--rot:10deg"><svg viewBox="0 0 64 64"><use href="#i-cube"/></svg></span>
+      </div>
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__label">Стек</span>
+          <h2 class="section__title">Инструменты и технологии</h2>
+          <p class="section__text">То, с помощью чего ваш сайт или бот получится быстрым, красивым и удобным.</p>
+        </div>
+      </div>
+
+      <div class="marquee reveal">
+        <div class="marquee__row">
+          <div class="marquee__track">
+            <span class="tech" style="--tc:#38bdf8"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-code"/></svg>HTML</span>
+            <span class="tech" style="--tc:#60a5fa"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-brush"/></svg>CSS</span>
+            <span class="tech" style="--tc:#7dd3fc"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-braces"/></svg>JavaScript</span>
+            <span class="tech" style="--tc:#22d3ee"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-devices"/></svg>Адаптив</span>
+            <span class="tech" style="--tc:#3b82f6"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-magnifier"/></svg>SEO</span>
+            <span class="tech" style="--tc:#818cf8"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-spark"/></svg>Анимации</span>
+            <span class="tech" style="--tc:#38bdf8"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-bot"/></svg>Telegram-боты</span>
+            <span class="tech" style="--tc:#7dd3fc"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-bolt"/></svg>aiogram</span>
+          </div>
+        </div>
+        <div class="marquee__row marquee__row--reverse">
+          <div class="marquee__track">
+            <span class="tech" style="--tc:#60a5fa"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-grid"/></svg>Дизайн-макеты</span>
+            <span class="tech" style="--tc:#22d3ee"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-form"/></svg>Формы заявок</span>
+            <span class="tech" style="--tc:#38bdf8"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-bolt"/></svg>Быстрая загрузка</span>
+            <span class="tech" style="--tc:#818cf8"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-globe"/></svg>Домен и хостинг</span>
+            <span class="tech" style="--tc:#7dd3fc"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-palette"/></svg>Фирменный стиль</span>
+            <span class="tech" style="--tc:#3b82f6"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-check"/></svg>Чистый код</span>
+            <span class="tech" style="--tc:#22d3ee"><svg class="tech__icon" viewBox="0 0 64 64"><use href="#i-rocket"/></svg>Запуск под ключ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. КАК Я РАБОТАЮ (4 шага)
+         Волны сверху и снизу — плавный переход между разделами
+         ============================================================ -->
+    <section class="section section--alt" id="process">
+      <svg class="wave wave--top" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path class="wave__fill" d="M0 70V38C180 8 360 4 560 22s420 44 620 26 200-30 260-26V70Z"/><path class="wave__line" d="M0 38C180 8 360 4 560 22s420 44 620 26 200-30 260-26"/></svg>
+      <svg class="wave wave--bottom" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path class="wave__fill" d="M0 70V30C240 60 420 56 640 34S1100 2 1440 36V70Z"/><path class="wave__line" d="M0 30C240 60 420 56 640 34S1100 2 1440 36"/></svg>
+      <div class="decor" aria-hidden="true">
+        <span class="deco" data-parallax="0.4" style="--x:3%;--y:16%;--size:58px;--depth:0.7;--dur:8s;--rot:-8deg"><svg viewBox="0 0 64 64"><use href="#i-pencil"/></svg></span>
+        <span class="deco deco--spin" data-parallax="-0.3" style="--x:93%;--y:10%;--size:56px;--depth:0.9;--c:#7dd3fc"><svg viewBox="0 0 64 64"><use href="#i-gear"/></svg></span>
+        <span class="deco" data-parallax="0.5" style="--x:92%;--y:70%;--size:56px;--depth:1;--dur:6.5s;--delay:-2s;--rot:20deg;--c:#bae6fd"><svg viewBox="0 0 64 64"><use href="#i-rocket"/></svg></span>
+        <span class="deco deco--desk" data-parallax="-0.4" style="--x:4%;--y:74%;--size:50px;--depth:0.6;--dur:9s;--delay:-4s"><svg viewBox="0 0 64 64"><use href="#i-check"/></svg></span>
+        <span class="deco deco--desk" data-parallax="0.3" style="--x:47%;--y:90%;--size:56px;--depth:0.5;--dur:10s;--delay:-6s;--rot:-4deg"><svg viewBox="0 0 64 64"><use href="#i-flow"/></svg></span>
+      </div>
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__label">Процесс</span>
+          <h2 class="section__title">Как я работаю</h2>
+          <p class="section__text">Простые и понятные этапы — вы всегда знаете, что происходит с вашим проектом.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step__num">01</div>
+            <h3 class="step__title">Обсуждение задачи</h3>
+            <p class="step__text">Узнаю о вашем бизнесе, целях и пожеланиях. Составляю план и называю точную цену.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step__num">02</div>
+            <h3 class="step__title">Дизайн</h3>
+            <p class="step__text">Рисую макет сайта в вашем стиле. Вносим правки, пока вам всё не понравится.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step__num">03</div>
+            <h3 class="step__title">Разработка</h3>
+            <p class="step__text">Верстаю сайт или пишу бота: быстро, удобно на телефоне и компьютере, с чистым кодом.</p>
+          </div>
+          <div class="step reveal">
+            <div class="step__num">04</div>
+            <h3 class="step__title">Запуск и поддержка</h3>
+            <p class="step__text">Размещаю сайт в интернете, подключаю домен и помогаю после запуска.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. ПРИЗЫВ НАПИСАТЬ
+         ============================================================ -->
+    <section class="section section--glow" id="cta">
+      <div class="section-glow section-glow--right" data-parallax="-0.4" aria-hidden="true"></div>
+      <div class="container">
+        <div class="cta reveal">
+          <h2 class="cta__title">Есть идея для сайта или бота?</h2>
+          <p class="cta__text">Напишите пару слов о задаче — подскажу, как лучше сделать, и назову цену.</p>
+          <div class="cta__buttons">
+            <a href="contacts.html" class="btn">Обсудить проект</a>
+            <a href="prices.html" class="btn btn--ghost">Посмотреть цены</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       ПОДВАЛ — одинаковый на всех страницах
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+      <nav class="footer__nav" aria-label="Меню в подвале">
+        <a href="index.html">Главная</a>
+        <a href="portfolio.html">Мои работы</a>
+        <a href="prices.html">Цены</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <!-- Год подставится автоматически (см. script.js) -->
+      <p>© <span id="year"></span> Anzero Website. Сайты и Telegram-боты на заказ.</p>
+    </div>
+  </footer>
+
+  <!-- Кнопка «Наверх» (появляется после прокрутки вниз) -->
+  <button class="to-top" id="to-top" type="button" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <!-- СКРИПТЫ (одинаковые на всех страницах)
+       GSAP + ScrollTrigger из интернета — для параллакса при прокрутке.
+       Без интернета сайт тоже работает, просто без параллакса. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

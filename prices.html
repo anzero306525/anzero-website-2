@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Цены — Anzero Website</title>
+  <meta name="description" content="Цены на сайты и Telegram-ботов: лендинг от 5 000 ₽, сайт-визитка от 7 500 ₽, многостраничный сайт до 50 000 ₽, Telegram-бот от 2 000 ₽.">
+  <meta name="theme-color" content="#050b1f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Anzero Website">
+  <meta property="og:title" content="Цены — Anzero Website">
+  <meta property="og:description" content="Лендинг от 5 000 ₽, сайт-визитка от 7 500 ₽, многостраничный сайт до 50 000 ₽, Telegram-бот от 2 000 ₽.">
+  <meta property="og:image" content="images/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ШАПКА С МЕНЮ (одинаковая на всех страницах) -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="portfolio.html" class="nav__link">Мои работы</a>
+        <a href="prices.html" class="nav__link nav__link--active" aria-current="page">Цены</a>
+        <a href="contacts.html" class="nav__link">Контакты</a>
+        <a href="contacts.html" class="btn btn--small nav__cta">Заказать сайт</a>
+      </nav>
+
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         ЦЕНЫ (4 тарифа)
+         Цена меняется внутри <div class="price-card__price">.
+         Кнопка «Заказать» ведёт на страницу контактов и сама подставляет
+         название тарифа в сообщение (часть ссылки после ?plan=).
+         ============================================================ -->
+    <section class="section section--glow page-section" id="prices">
+      <div class="section-glow section-glow--right" data-parallax="-0.5" aria-hidden="true"></div>
+      <div class="bg-grid" aria-hidden="true"></div>
+      <div class="decor" aria-hidden="true">
+        <span class="deco" data-parallax="0.4" style="--x:3%;--y:12%;--size:58px;--depth:0.8;--dur:7.5s;--rot:-6deg"><svg viewBox="0 0 64 64"><use href="#i-coin"/></svg></span>
+        <span class="deco" data-parallax="-0.3" style="--x:93%;--y:16%;--size:56px;--depth:0.6;--dur:9s;--delay:-3s;--rot:8deg;--c:#7dd3fc"><svg viewBox="0 0 64 64"><use href="#i-wallet"/></svg></span>
+        <span class="deco deco--desk" data-parallax="0.5" style="--x:2.5%;--y:68%;--size:50px;--depth:1;--dur:6.5s;--delay:-2s;--rot:-18deg"><svg viewBox="0 0 64 64"><use href="#i-tag"/></svg></span>
+        <span class="deco" data-parallax="-0.5" style="--x:93%;--y:74%;--size:44px;--depth:1.2;--dur:5.5s;--delay:-1s;--rot:12deg;--c:#bae6fd;--o:0.3"><svg viewBox="0 0 64 64"><use href="#i-star"/></svg></span>
+        <span class="deco deco--desk" data-parallax="0.3" style="--x:48%;--y:94%;--size:50px;--depth:0.6;--dur:8s;--delay:-5s;--rot:-6deg"><svg viewBox="0 0 64 64"><use href="#i-gift"/></svg></span>
+      </div>
+
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__label">Тарифы</span>
+          <h1 class="section__title">Цены</h1>
+          <p class="section__text">Стоимость зависит от объёма работы. Точную цену назову после короткого обсуждения.</p>
+        </div>
+
+        <div class="prices-grid prices-grid--four">
+
+          <!-- Тариф 1 -->
+          <div class="price-card reveal">
+            <h2 class="price-card__name">Лендинг</h2>
+            <p class="price-card__desc">Одностраничный сайт для продажи товара или услуги</p>
+            <span class="price-card__discount">Скидка 90%</span>
+            <div class="price-card__price">от 5 000 ₽</div>
+            <ul class="price-card__list">
+              <li>1 страница с блоками</li>
+              <li>Адаптация под телефоны</li>
+              <li>Форма заявки</li>
+              <li>Срок от 3 дней</li>
+            </ul>
+            <a href="contacts.html?plan=Лендинг" class="btn btn--ghost btn--full">Заказать</a>
+          </div>
+
+          <!-- Тариф 2 (выделенный, «популярный») -->
+          <div class="price-card price-card--popular reveal">
+            <span class="price-card__badge">Популярный</span>
+            <h2 class="price-card__name">Сайт-визитка</h2>
+            <p class="price-card__desc">Небольшой сайт, который расскажет о вас или компании</p>
+            <span class="price-card__discount">Скидка 80%</span>
+            <div class="price-card__price">от 7 500 ₽</div>
+            <ul class="price-card__list">
+              <li>До 5 страниц</li>
+              <li>Индивидуальный дизайн</li>
+              <li>Адаптация под телефоны</li>
+              <li>Базовая SEO-настройка</li>
+              <li>Помощь с запуском</li>
+            </ul>
+            <a href="contacts.html?plan=Сайт-визитка" class="btn btn--full">Заказать</a>
+          </div>
+
+          <!-- Тариф 3 -->
+          <div class="price-card reveal">
+            <h2 class="price-card__name">Многостраничный сайт</h2>
+            <p class="price-card__desc">Полноценный сайт с разделами, каталогом или записью</p>
+            <span class="price-card__discount">Скидка 20%</span>
+            <div class="price-card__price">до 50 000 ₽</div>
+            <ul class="price-card__list">
+              <li>Много страниц и разделов</li>
+              <li>Каталог, прайс или онлайн-запись</li>
+              <li>Уникальный дизайн</li>
+              <li>SEO и скорость загрузки</li>
+              <li>Месяц поддержки бесплатно</li>
+            </ul>
+            <a href="contacts.html?plan=Многостраничный сайт" class="btn btn--ghost btn--full">Заказать</a>
+          </div>
+
+          <!-- Тариф 4 -->
+          <div class="price-card reveal">
+            <h2 class="price-card__name">Telegram-бот</h2>
+            <p class="price-card__desc">Бот на Python (aiogram) для заявок, записи и ответов клиентам</p>
+            <span class="price-card__discount">Скидка 35%</span>
+            <div class="price-card__price">от 2 000 ₽</div>
+            <ul class="price-card__list">
+              <li>Меню с кнопками</li>
+              <li>Приём заявок и записи</li>
+              <li>Уведомления вам в Telegram</li>
+              <li>Ответы на частые вопросы</li>
+            </ul>
+            <a href="contacts.html?plan=Telegram-бот" class="btn btn--ghost btn--full">Заказать</a>
+          </div>
+
+        </div>
+
+        <!-- Подпись под тарифами -->
+        <p class="prices-note reveal">
+          <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-chat"/></svg>
+          Цена обсуждается под ваши задачи
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ЧАСТЫЕ ВОПРОСЫ
+         Каждый вопрос — блок <details class="faq__item">.
+         Текст вопроса — в <summary>, ответ — в <div class="faq__answer">.
+         ============================================================ -->
+    <section class="section section--alt" id="faq">
+      <svg class="wave wave--top" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path class="wave__fill" d="M0 70V26C300 56 520 60 760 36S1220 6 1440 30V70Z"/><path class="wave__line" d="M0 26C300 56 520 60 760 36S1220 6 1440 30"/></svg>
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__label">FAQ</span>
+          <h2 class="section__title">Частые вопросы</h2>
+          <p class="section__text">Коротко о сроках, оплате и о том, что понадобится от вас.</p>
+        </div>
+
+        <div class="faq">
+          <details class="faq__item reveal">
+            <summary>Сколько времени занимает разработка?</summary>
+            <div class="faq__answer">
+              <p>Лендинг — от 3 дней, простой Telegram-бот — от 1–2 дней. Срок для сайта-визитки и многостраничного сайта зависит от количества страниц и готовности материалов. Точный срок назову после обсуждения задачи.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Как происходит оплата?</summary>
+            <div class="faq__answer">
+              <p>Стоимость и порядок оплаты согласуем до начала работы. Обычно это предоплата и оплата остатка после того, как вы примете готовый сайт или бота.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Что умеет Telegram-бот?</summary>
+            <div class="faq__answer">
+              <p>Например: показывать меню с кнопками, принимать заявки и записи, присылать вам уведомления о новых клиентах и отвечать на частые вопросы. Пишу ботов на Python с библиотекой aiogram.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Что нужно от меня для начала работы?</summary>
+            <div class="faq__answer">
+              <p>Расскажите о своём бизнесе и задаче, пришлите тексты, логотип и фотографии, если они есть, и примеры сайтов, которые вам нравятся. Если чего-то не хватает — подскажу, как это подготовить.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Помогаете ли вы с доменом и хостингом?</summary>
+            <div class="faq__answer">
+              <p>Да. Помогу выбрать и подключить домен (адрес сайта) и хостинг (место, где сайт хранится в интернете). Они оформляются на вас и оплачиваются напрямую сервису.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Можно ли вносить правки?</summary>
+            <div class="faq__answer">
+              <p>Конечно. На этапе дизайна вносим правки, пока вам всё не понравится. После запуска помогаю с вопросами по сайту.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary>Будет ли сайт удобен на телефоне?</summary>
+            <div class="faq__answer">
+              <p>Да, каждый сайт адаптируется под телефоны, планшеты и компьютеры — его удобно открывать с любого устройства.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ПОДВАЛ (одинаковый на всех страницах) -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__mark">A</span>
+        <span class="logo__text">Anzero <b>Website</b></span>
+      </a>
+      <nav class="footer__nav" aria-label="Меню в подвале">
+        <a href="index.html">Главная</a>
+        <a href="portfolio.html">Мои работы</a>
+        <a href="prices.html">Цены</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <p>© <span id="year"></span> Anzero Website. Сайты и Telegram-боты на заказ.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
